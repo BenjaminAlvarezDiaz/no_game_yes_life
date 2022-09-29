@@ -76,7 +76,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _task('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _taskEasy('The easy challenge is as follows: ${hours} : ${minutes}'),
         _space()
       ],
     );
@@ -113,7 +113,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _task('The normal challenge is as follows: ${hours} : ${minutes}'),
+        _taskNormal('The normal challenge is as follows: ${hours} : ${minutes}'),
         _space()
       ],
     );
@@ -146,13 +146,139 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _task('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _taskHard('The easy challenge is as follows: ${hours} : ${minutes}'),
         _space()
       ],
     );
   }
 
-  Padding _task(String task) {
+  Padding _taskEasy(String task) {
+    double? height = 120;
+    double? width = 400;
+    return Padding(
+      padding: const EdgeInsets.only(right: 40),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Stack(
+          children: [
+            Container(
+              height: height,
+              width: width,
+              decoration: BoxDecoration(
+                color: const Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                    color: Colors.black12
+                ),
+              ),
+              alignment: const Alignment(-0.90, -0.65),
+              child: Text(task,
+                  style: const TextStyle(
+                    color: Color(0xff757575),
+                    fontSize: 18,
+                  )),
+            ),
+            SizedBox(
+              height: height,
+              width: width,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: InkWell(
+                    onTap: () {
+                      _con.onPressedTask(context);
+                    },
+                    child: Container(
+                      height: 45,
+                      width: 125,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: const Color(0xff5295BE),
+                              width: 3
+                          )
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text("Let's GO!",
+                          style: TextStyle(
+                              color: Color(0xff5295BE),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          )
+                      ),
+                    )
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  Padding _taskNormal(String task) {
+    double? height = 120;
+    double? width = 400;
+    return Padding(
+      padding: const EdgeInsets.only(right: 40),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Stack(
+          children: [
+            Container(
+              height: height,
+              width: width,
+              decoration: BoxDecoration(
+                color: const Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                    color: Colors.black12
+                ),
+              ),
+              alignment: const Alignment(-0.90, -0.65),
+              child: Text(task,
+                  style: const TextStyle(
+                    color: Color(0xff757575),
+                    fontSize: 18,
+                  )),
+            ),
+            SizedBox(
+              height: height,
+              width: width,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: InkWell(
+                    onTap: () {
+                      _con.onPressedTask(context);
+                    },
+                    child: Container(
+                      height: 45,
+                      width: 125,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: const Color(0xff5295BE),
+                              width: 3
+                          )
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text("Let's GO!",
+                          style: TextStyle(
+                              color: Color(0xff5295BE),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          )
+                      ),
+                    )
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  Padding _taskHard(String task) {
     double? height = 120;
     double? width = 400;
     return Padding(
