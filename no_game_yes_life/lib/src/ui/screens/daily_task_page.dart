@@ -76,7 +76,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _task('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _task('The easy challenge is as follows: ${hours} : ${minutes}', _con.onPressedTask(context)),
         _space()
       ],
     );
@@ -113,7 +113,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _task('The normal challenge is as follows: ${hours} : ${minutes}'),
+        _task('The normal challenge is as follows: ${hours} : ${minutes}', _con.onPressedTask(context)),
         _space()
       ],
     );
@@ -146,13 +146,13 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _task('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _task('The easy challenge is as follows: ${hours} : ${minutes}', _con.onPressedTask(context)),
         _space()
       ],
     );
   }
 
-  Padding _task(String task) {
+  Padding _task(String task, function) {
     double? height = 120;
     double? width = 400;
     return Padding(
@@ -185,7 +185,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
                 alignment: Alignment.bottomRight,
                 child: InkWell(
                     onTap: () {
-                      _con.onPressedTask(context);
+                      function;
                     },
                     child: Container(
                       height: 45,
