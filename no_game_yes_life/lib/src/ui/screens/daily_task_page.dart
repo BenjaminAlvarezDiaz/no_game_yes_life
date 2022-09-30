@@ -186,6 +186,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
                 child: InkWell(
                     onTap: () {
                       _con.onPressedTask(context);
+                      context.read<Task>().easyTask();
                     },
                     child: Container(
                       height: 45,
@@ -249,6 +250,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
                 child: InkWell(
                     onTap: () {
                       _con.onPressedTask(context);
+                      context.read<Task>().normalTask();
                     },
                     child: Container(
                       height: 45,
@@ -312,6 +314,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
                 child: InkWell(
                     onTap: () {
                       _con.onPressedTask(context);
+                      context.read<Task>().hardTask();
                     },
                     child: Container(
                       height: 45,

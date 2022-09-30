@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Task with ChangeNotifier{
-  static Duration time = const Duration(hours: 16);
-  static Duration timeTask1= time;
-  static Duration timeTask2= time;
-  static Duration timeEasy = timeTask1 - const Duration(hours: 2);
-  static Duration timeNormal = timeTask2 - const Duration(hours: 4);
 
   void easyTask(){
+    Duration time = const Duration(hours: 16);
+    Duration timeEasy = time - const Duration(hours: 2);
     ChangeNotifier();
   }
 
   void normalTask(){
+    Duration time = const Duration(hours: 16);
+    Duration timeNormal = time - const Duration(hours: 4);
     ChangeNotifier();
   }
 
