@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:no_game_yes_life/src/ui/screen_controllers/hobby_stop_watch_page_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:no_game_yes_life/src/providers/task_provider.dart';
 //import 'package:mvc_pattern/mvc_pattern.dart';
@@ -9,11 +11,15 @@ class HobbyStopWatch extends StatefulWidget{
 const HobbyStopWatch ({Key? key}) : super(key: key);
 
   @override
-  State<HobbyStopWatch> createState() => _HobbyStopWatch();
+  StateMVC<HobbyStopWatch> createState() => _HobbyStopWatch();
 }
 
-class _HobbyStopWatch extends State<HobbyStopWatch> {
-  static const countdownDuration = Duration(minutes: 10);
+class _HobbyStopWatch extends StateMVC<HobbyStopWatch> {
+  late HobbyStopWatchPageController _con;
+  _HobbyStopWatch() : super (HobbyStopWatchPageController()){
+    _con = HobbyStopWatchPageController();
+  }
+  static countdownDuration = _con.getCountdown();
   Duration duration = const Duration();
   Timer? timer;
 

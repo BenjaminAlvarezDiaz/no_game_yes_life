@@ -1,25 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:no_game_yes_life/src/ui/screens/daily_task_page.dart';
+class DailyTask{
 
-class DailyTaskModel extends StatefulWidget{
+  late Duration timeEasy;
+  late Duration timeNormal;
+  late Duration timeHard;
 
-  String? text;
-
-   DailyTaskModel ({Key? key, required this.text}) : super (key: key);
-
-  @override
-  State<DailyTaskModel> createState() => _DailyTaskModel();
-}
-
-class _DailyTaskModel extends State<DailyTaskModel>{
-  @override
-  Widget build (BuildContext context){
-    return task(widget.text);
+  DailyTask(_timeEasy, _timeNormal, _timeHard){
+    timeEasy = _timeEasy;
+    timeNormal = _timeNormal;
+    timeHard = _timeHard;
   }
-}
-
-Container task(widget){
-  return Container(
-    child: Text(widget),
-  );
 }
