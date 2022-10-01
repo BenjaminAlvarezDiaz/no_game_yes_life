@@ -3,12 +3,16 @@ import 'package:no_game_yes_life/manager/data_manager.dart';
 
 class HobbyStopWatchPageController extends ControllerMVC {
   late DataManager dataManager;
-  HobbyStopWatchPageController._privateConstruct();
+  HobbyStopWatchPageController._privateConstruct(this.dataManager);
 
-  static final HobbyStopWatchPageController _instance = HobbyStopWatchPageController._privateConstruct();
+  static final HobbyStopWatchPageController _instance = HobbyStopWatchPageController._privateConstruct(DataManager());
 
   factory HobbyStopWatchPageController(){
     return _instance;
+  }
+
+  init (){
+    getCountdown();
   }
 
   getCountdown(){

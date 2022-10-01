@@ -7,6 +7,6 @@ class Dummy implements IDataAccess{
   @override
   getCountDown() {
     hobbyStopWatch = HobbyStopWatch(const Duration(hours: 16));
-    return hobbyStopWatch;
+    return hobbyStopWatch.countdown;
   }
 }
