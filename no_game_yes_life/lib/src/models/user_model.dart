@@ -2,8 +2,8 @@ class User{
 
   late String name;
   late int routine;
-  User(nickname, this.routine){
+  User(nickname, _routine){
     name = nickname;
-    routine = routine;
+    routine = _routine;
   }
 }
