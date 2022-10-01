@@ -1,9 +1,9 @@
 class User{
 
-  late String nombre;
+  late String name;
   late int routine;
   User(nickname, this.routine){
-    nombre = nickname;
+    name = nickname;
     routine = routine;
   }
 }
