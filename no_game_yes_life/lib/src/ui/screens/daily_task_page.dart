@@ -13,16 +13,14 @@ class DailyTask extends StatefulWidget{
 }
 
 class _DailyTaskPage extends StateMVC<DailyTask> {
-  static Duration time = const Duration(hours: 16, minutes: 00);
-  static Duration timeTask1= time;
-  static Duration timeTask2= time;
+
   late DailyTaskPageController _con;
+  late Duration time;
+
   _DailyTaskPage() : super (DailyTaskPageController()){
     _con = DailyTaskPageController();
+    time = _con.getCountdown();
   }
-  static Duration timeEasy = timeTask1 - const Duration(hours: 2);
-  static Duration timeNormal = timeTask2 - const Duration(hours: 4);
-  static Duration timeHard = const Duration(minutes: 30);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +44,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
   }
 
   Column _easy() {
+    Duration timeEasy = _con.setTimeEasy();
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeEasy.inHours.remainder(60));
     final minutes = twoDigits(timeEasy.inMinutes.remainder(60));
@@ -76,13 +75,19 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _taskEasy('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _task(
+            'The easy challenge is as follows: ${hours} : ${minutes}',
+                (){
+              _con.onPressedTask(context);
+              context.read<Task>().easyTask();
+            }),
         _space()
       ],
     );
   }
 
   Column _normal() {
+    Duration timeNormal = _con.setTimeNormal();
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeNormal.inHours.remainder(60));
     final minutes = twoDigits(timeNormal.inMinutes.remainder(60));
@@ -113,13 +118,19 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _taskNormal('The normal challenge is as follows: ${hours} : ${minutes}'),
+        _task(
+            'The normal challenge is as follows: ${hours} : ${minutes}',
+                (){
+              _con.onPressedTask(context);
+              context.read<Task>().normalTask();
+        }),
         _space()
       ],
     );
   }
 
   Column _hard() {
+    Duration timeHard = _con.setTimeHard();
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeHard.inHours.remainder(60));
     final minutes = twoDigits(timeHard.inMinutes.remainder(60));
@@ -146,13 +157,18 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
           ),
         ),
         _space(),
-        _taskHard('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _task(
+            'The hard challenge is as follows: ${hours} : ${minutes}', (){
+              _con.onPressedTask(context);
+              context.read<Task>().hardTask();
+            }
+        ),
         _space()
       ],
     );
   }
 
-  Padding _taskEasy(String task) {
+  Padding _task(String task, Function()? action) {
     double? height = 120;
     double? width = 400;
     return Padding(
@@ -184,10 +200,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: InkWell(
-                    onTap: () {
-                      _con.onPressedTask(context);
-                      context.read<Task>().easyTask();
-                    },
+                    onTap: action,
                     child: Container(
                       height: 45,
                       width: 125,
