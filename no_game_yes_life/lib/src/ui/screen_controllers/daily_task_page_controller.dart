@@ -28,17 +28,17 @@ class DailyTaskPageController extends ControllerMVC{
   }
 
   setTimeEasy(){
-    Duration timeEasy = dataManager.getCountDown() - Duration(hours: 2);
+    Duration timeEasy = dataManager.getCountDown() - const Duration(hours: 2);
     return timeEasy;
   }
 
   setTimeNormal(){
-    Duration timeNormal = dataManager.getCountDown() - Duration(hours: 4);
+    Duration timeNormal = dataManager.getCountDown() - const Duration(hours: 4);
     return timeNormal;
   }
 
   setTimeHard(){
-    Duration timeHard = Duration(minutes: 30);
+    Duration timeHard = const Duration(minutes: 30);
     return timeHard;
   }
 

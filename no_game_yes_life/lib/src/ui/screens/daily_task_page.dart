@@ -15,11 +15,9 @@ class DailyTask extends StatefulWidget{
 class _DailyTaskPage extends StateMVC<DailyTask> {
 
   late DailyTaskPageController _con;
-  late Duration time;
 
   _DailyTaskPage() : super (DailyTaskPageController()){
     _con = DailyTaskPageController();
-    time = _con.getCountdown();
   }
 
   @override
@@ -48,36 +46,16 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeEasy.inHours.remainder(60));
     final minutes = twoDigits(timeEasy.inMinutes.remainder(60));
+    final seconds = twoDigits(timeEasy.inSeconds.remainder(60));
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: const Color(0xff704096),
-                    width: 1.5
-                )
-            ),
-            height: 50,
-            width: double.infinity,
-            child: const Center(
-              child: Text('Easy Task',
-                  style: TextStyle(
-                      color: Color(0xff704096),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
-                  )
-              ),
-            ),
-          ),
+        _content('Easy Task', Colors.white, Border.all(
+            color: const Color(0xff704096),
+            width: 1.5), const Color(0xff704096)
         ),
         _space(),
         _task(
-            'The easy challenge is as follows: ${hours} : ${minutes}',
-                (){
+            'The easy challenge is as follows: ${hours}:${minutes}:${seconds}', (){
               _con.onPressedTask(context);
               context.read<Task>().easyTask();
             }),
@@ -91,36 +69,15 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeNormal.inHours.remainder(60));
     final minutes = twoDigits(timeNormal.inMinutes.remainder(60));
+    final seconds = twoDigits(timeNormal.inSeconds.remainder(60));
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: const Color(0xff704096),
-                    width: 1.5
-                )
-            ),
-            height: 50,
-            width: double.infinity,
-            child: const Center(
-              child: Text('Normal Task',
-                  style: TextStyle(
-                      color: Color(0xff704096),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
-                  )
-              ),
-            ),
-          ),
-        ),
+        _content('Normal Task', Colors.white, Border.all(
+            color: const Color(0xff704096),
+            width: 1.5), const Color(0xff704096)),
         _space(),
         _task(
-            'The normal challenge is as follows: ${hours} : ${minutes}',
-                (){
+            'The normal challenge is as follows: ${hours}:${minutes}:${seconds}', (){
               _con.onPressedTask(context);
               context.read<Task>().normalTask();
         }),
@@ -134,31 +91,13 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeHard.inHours.remainder(60));
     final minutes = twoDigits(timeHard.inMinutes.remainder(60));
+    final seconds = twoDigits(timeHard.inSeconds.remainder(60));
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
-            decoration: BoxDecoration(
-                color: const Color(0xff704096),
-                borderRadius: BorderRadius.circular(10)
-            ),
-            height: 50,
-            width: double.infinity,
-            child: const Center(
-              child: Text('Hard Task',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
-                  )
-              ),
-            ),
-          ),
-        ),
+        _content('Hard Task', const Color(0xff704096), null, Colors.white),
         _space(),
         _task(
-            'The hard challenge is as follows: ${hours} : ${minutes}', (){
+            'The hard challenge is as follows: ${hours}:${minutes}:${seconds}', (){
               _con.onPressedTask(context);
               context.read<Task>().hardTask();
             }
@@ -168,6 +107,29 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
     );
   }
 
+  Padding _content(String difficultyTask, Color? backgroundColor, BoxBorder? border, Color? colorTask){
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            border: border
+        ),
+        height: 50,
+        width: double.infinity,
+        child: Center(
+          child: Text(difficultyTask,
+              style: TextStyle(
+                  color: colorTask,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500
+              )
+          ),
+        ),
+      ),
+    );
+  }
   Padding _task(String task, Function()? action) {
     double? height = 120;
     double? width = 400;
@@ -229,7 +191,22 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
       ),
     );
   }
-  Padding _taskNormal(String task) {
+  SizedBox _space() {
+    return const SizedBox(
+      height: 10,
+      width: double.infinity,
+    );
+  }
+
+  AppBar appBar(context) {
+    return AppBar(
+      backgroundColor: const Color(0xff704096),
+      title: const Text('Daily task'),
+      centerTitle: true,
+    );
+  }
+
+/*Padding _taskNormal(String task) {
     double? height = 120;
     double? width = 400;
     return Padding(
@@ -356,23 +333,42 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
         ),
       ),
     );
-  }
-
-  SizedBox _space() {
-    return const SizedBox(
-      height: 10,
-      width: double.infinity,
+  }*/
+/*
+  Column _difficulty(String difficultyTask, Duration timeTask, String task, Function()? action){
+    Duration time = timeTask;
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(time.inHours.remainder(60));
+    final minutes = twoDigits(time.inMinutes.remainder(60));
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Container(
+            decoration: BoxDecoration(
+                color: const Color(0xff704096),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            height: 50,
+            width: double.infinity,
+            child: Center(
+              child: Text(difficultyTask,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500
+                  )
+              ),
+            ),
+          ),
+        ),
+        _space(),
+        _task(task, action),
+        _space()
+      ],
     );
   }
-
-  AppBar appBar(context) {
-    return AppBar(
-      backgroundColor: const Color(0xff704096),
-      title: const Text('Daily task'),
-      centerTitle: true,
-    );
-  }
-
+   */
 /*
   Column _taskNotTrue(){
     return Column(
