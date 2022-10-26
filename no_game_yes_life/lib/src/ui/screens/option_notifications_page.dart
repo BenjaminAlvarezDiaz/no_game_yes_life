@@ -114,14 +114,14 @@ class _OptionsNotificationsPage extends StateMVC<OptionsNotificationsPage> {
             children: [
               SimpleDialogOption(
                 onPressed: (){
-                  print('Siuuuuuuuu');
+                  //print('Siuuuuuuuu');
                   Navigator.pop(context);
             },
                 child: const Text('Tone1'),
           ),
               SimpleDialogOption(
                 onPressed: (){
-                  print('Nouuuuuuu');
+                  //print('Nouuuuuuu');
                   Navigator.pop(context);
             },
                 child: const Text('Tone2'),
