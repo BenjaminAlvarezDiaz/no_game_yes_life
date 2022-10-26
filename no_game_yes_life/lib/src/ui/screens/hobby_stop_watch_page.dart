@@ -95,7 +95,7 @@ class _HobbyStopWatch extends StateMVC<HobbyStopWatch> {
           const SizedBox(
             height: 40,
           ),
-          Text('${context.watch<Task>().timeEasy}')
+          //Text('${context.watch<Task>().timeEasy}')
         ],
       ),
     );

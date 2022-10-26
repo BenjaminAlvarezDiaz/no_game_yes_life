@@ -43,9 +43,9 @@ class _OptionsNotificationsPage extends StateMVC<OptionsNotificationsPage> {
         _title('General'),
         _optionNotification('Notifications'),
         Padding(
-          padding: EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20),
           child: Align(
-            alignment: Alignment(-1,0),
+            alignment: const Alignment(-1,0),
             child: ElevatedButton(
               onPressed: (){
                 _displayDialog(context);
@@ -117,14 +117,14 @@ class _OptionsNotificationsPage extends StateMVC<OptionsNotificationsPage> {
                   print('Siuuuuuuuu');
                   Navigator.pop(context);
             },
-                child: Text('Tone1'),
+                child: const Text('Tone1'),
           ),
               SimpleDialogOption(
                 onPressed: (){
                   print('Nouuuuuuu');
                   Navigator.pop(context);
             },
-                child: Text('Tone2'),
+                child: const Text('Tone2'),
           )
         ],
       );

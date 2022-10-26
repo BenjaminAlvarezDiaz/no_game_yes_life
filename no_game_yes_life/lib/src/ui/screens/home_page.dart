@@ -136,20 +136,20 @@ class _Home extends StateMVC<Home> {
                     color: Colors.white,
                     fontSize: 50)
             ),
-            userName('[Username]')
+            userName(_con.getNickname())
           ],
         ),
       ),
     );
   }
 
-  SizedBox userName(String text) {
+  SizedBox userName(String nickname) {
     return SizedBox(
         height: 50,
         width: 150,
         child: Align(
           alignment: const Alignment(0, 0),
-          child: Text(text, style: const TextStyle(
+          child: Text(nickname, style: const TextStyle(
               color: Colors.white,
               fontSize: 28
             ),

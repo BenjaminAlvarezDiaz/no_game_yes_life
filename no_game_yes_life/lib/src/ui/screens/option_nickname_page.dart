@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:no_game_yes_life/src/ui/screen_controllers/option_nickname_page_controller.dart';
+import 'package:no_game_yes_life/src/ui/screens/home_nickname_page.dart';
 
 class OptionsNicknamePage extends StatefulWidget {
   const OptionsNicknamePage({Key? key}) : super(key: key);
@@ -9,6 +11,15 @@ class OptionsNicknamePage extends StatefulWidget {
 }
 
 class _OptionsNicknamePageState extends StateMVC<OptionsNicknamePage> {
+  late OptionNicknamePageController _con;
+  late TextEditingController _controller;
+  late String newNickname;
+
+  _OptionsNicknamePageState() : super (OptionNicknamePageController()){
+    _con = OptionNicknamePageController();
+    _controller = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,13 +52,14 @@ class _OptionsNicknamePageState extends StateMVC<OptionsNicknamePage> {
   }
 
   _entry(){
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
-        style: TextStyle(
+        controller: _controller,
+        style: const TextStyle(
           color: Colors.black
         ),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Nickname',
           hintStyle: TextStyle(
@@ -56,6 +68,12 @@ class _OptionsNicknamePageState extends StateMVC<OptionsNicknamePage> {
           ),
           contentPadding: EdgeInsets.all(15),
         ),
+        onSubmitted: (String newNick){
+          setState(() {
+            newNickname = newNick;
+            _con.setNickname(newNickname);
+          });
+        },
       ),
     );
   }

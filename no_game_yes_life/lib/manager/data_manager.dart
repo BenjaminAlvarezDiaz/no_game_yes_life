@@ -15,4 +15,16 @@ class DataManager{
   getCountDown(){
     return dataAccess.getCountDown();
   }
+
+  getNickname(){
+    return dataAccess.getNickname();
+  }
+
+  setNickname(String newNickname){
+    dataAccess.setNickname(newNickname);
+  }
+
+  setRoutine(double newRoutine){
+    dataAccess.setRoutine(newRoutine);
+  }
 }

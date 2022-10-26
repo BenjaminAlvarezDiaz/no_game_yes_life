@@ -24,7 +24,7 @@ class DailyTaskPageController extends ControllerMVC{
   }
 
   getCountdown(){
-    return dataManager.getCountDown();
+    return dataManager.getNickname();
   }
 
   setTimeEasy(){
