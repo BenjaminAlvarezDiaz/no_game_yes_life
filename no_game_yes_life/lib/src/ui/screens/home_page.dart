@@ -5,7 +5,6 @@ import 'package:no_game_yes_life/src/ui/screens/daily_task_page.dart';
 import 'package:no_game_yes_life/src/ui/screens/hobby_stop_watch_page.dart';
 import 'package:no_game_yes_life/src/ui/screens/home_nickname_page.dart';
 import 'package:no_game_yes_life/src/ui/screens/on_boarding_page.dart';
-import 'package:no_game_yes_life/src/ui/component/button_component.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
