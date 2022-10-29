@@ -7,8 +7,10 @@ class Dummy implements IDataAccess{
   late HobbyStopWatch hobbyStopWatch;
   late User user;
   late DailyTask dailyTask;
+  late DateTime dateTimeNow;
 
   init(){
+    dateTimeNow = DateTime.now();
     dailyTask = DailyTask(0, 0, 0);
   }
 
@@ -40,6 +42,11 @@ class Dummy implements IDataAccess{
   }
 
   @override
+  getDateTimeNow(){
+    return dateTimeNow;
+  }
+
+  @override
   setNickname(String newNickname){
     //print(user.name);
     user.name = newNickname;
@@ -65,5 +72,10 @@ class Dummy implements IDataAccess{
   @override
   setAmountHard(int newAmountHard){
     dailyTask.amountHard = newAmountHard;
+  }
+
+  @override
+  setDateTimeNow(DateTime newDateTime){
+    dateTimeNow = newDateTime;
   }
 }
