@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:no_game_yes_life/src/ui/screen_controllers/home_page_controller.dart';
+import 'package:no_game_yes_life/src/ui/screens/daily_task_page.dart';
+import 'package:no_game_yes_life/src/ui/screens/hobby_stop_watch_page.dart';
 import 'package:no_game_yes_life/src/ui/screens/home_nickname_page.dart';
 import 'package:no_game_yes_life/src/ui/screens/on_boarding_page.dart';
-import 'package:no_game_yes_life/src/ui/component/button_component.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -14,6 +15,10 @@ class MyApp extends StatelessWidget {
       home: const Home(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: const Color(0xff704096)),
+      routes: {
+        'DailyTask' : (context) => const DailyTask(),
+        'Task' : (context) => const HobbyStopWatch()
+      },
     );
   }
 }
@@ -130,20 +135,20 @@ class _Home extends StateMVC<Home> {
                     color: Colors.white,
                     fontSize: 50)
             ),
-            userName('[Username]')
+            userName(_con.getNickname())
           ],
         ),
       ),
     );
   }
 
-  SizedBox userName(String text) {
+  SizedBox userName(String nickname) {
     return SizedBox(
         height: 50,
         width: 150,
         child: Align(
           alignment: const Alignment(0, 0),
-          child: Text(text, style: const TextStyle(
+          child: Text(nickname, style: const TextStyle(
               color: Colors.white,
               fontSize: 28
             ),

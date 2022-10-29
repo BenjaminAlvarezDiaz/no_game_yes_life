@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:no_game_yes_life/src/ui/screen_controllers/option_routine_page_controller.dart';
 
 class OptionsRoutinePage extends StatefulWidget {
   const OptionsRoutinePage({Key? key}) : super(key: key);
@@ -9,6 +10,14 @@ class OptionsRoutinePage extends StatefulWidget {
 }
 
 class _OptionsRoutinePageState extends StateMVC<OptionsRoutinePage> {
+  late OptionRoutinePageController _con;
+  late TextEditingController _controller;
+  late double? newRoutine;
+  
+  _OptionsRoutinePageState() : super (OptionRoutinePageController()){
+    _con = OptionRoutinePageController();
+    _controller = TextEditingController();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,13 +55,14 @@ class _OptionsRoutinePageState extends StateMVC<OptionsRoutinePage> {
   }
 
   _entry(){
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
-        style: TextStyle(
+        controller: _controller,
+        style: const TextStyle(
             color: Colors.black
         ),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'New routine',
             hintStyle: TextStyle(
@@ -61,6 +71,12 @@ class _OptionsRoutinePageState extends StateMVC<OptionsRoutinePage> {
             ),
           contentPadding: EdgeInsets.all(15)
         ),
+        onSubmitted: (String routine){
+          setState(() {
+            newRoutine = double.tryParse(routine);
+            _con.setRoutine(newRoutine!);
+          });
+        },
       ),
     );
   }

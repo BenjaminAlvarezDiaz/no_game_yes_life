@@ -13,16 +13,12 @@ class DailyTask extends StatefulWidget{
 }
 
 class _DailyTaskPage extends StateMVC<DailyTask> {
-  static Duration time = const Duration(hours: 16, minutes: 00);
-  static Duration timeTask1= time;
-  static Duration timeTask2= time;
+
   late DailyTaskPageController _con;
+
   _DailyTaskPage() : super (DailyTaskPageController()){
     _con = DailyTaskPageController();
   }
-  static Duration timeEasy = timeTask1 - const Duration(hours: 2);
-  static Duration timeNormal = timeTask2 - const Duration(hours: 4);
-  static Duration timeHard = const Duration(minutes: 30);
 
   @override
   Widget build(BuildContext context) {
@@ -46,113 +42,171 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
   }
 
   Column _easy() {
+    Duration timeEasy = _con.setTimeEasy();
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeEasy.inHours.remainder(60));
     final minutes = twoDigits(timeEasy.inMinutes.remainder(60));
+    final seconds = twoDigits(timeEasy.inSeconds.remainder(60));
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: const Color(0xff704096),
-                    width: 1.5
-                )
-            ),
-            height: 50,
-            width: double.infinity,
-            child: const Center(
-              child: Text('Easy Task',
-                  style: TextStyle(
-                      color: Color(0xff704096),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
-                  )
-              ),
-            ),
-          ),
+        _content('Easy Task', Colors.white, Border.all(
+            color: const Color(0xff704096),
+            width: 1.5), const Color(0xff704096)
         ),
         _space(),
-        _task('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _task(
+            'The easy challenge is as follows: ${hours}:${minutes}:${seconds}', (){
+              _con.onPressedTask(context);
+              context.read<Task>().easyTask();
+            }),
         _space()
       ],
     );
   }
 
   Column _normal() {
+    Duration timeNormal = _con.setTimeNormal();
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeNormal.inHours.remainder(60));
     final minutes = twoDigits(timeNormal.inMinutes.remainder(60));
+    final seconds = twoDigits(timeNormal.inSeconds.remainder(60));
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: const Color(0xff704096),
-                    width: 1.5
-                )
-            ),
-            height: 50,
-            width: double.infinity,
-            child: const Center(
-              child: Text('Normal Task',
-                  style: TextStyle(
-                      color: Color(0xff704096),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
-                  )
-              ),
-            ),
-          ),
-        ),
+        _content('Normal Task', Colors.white, Border.all(
+            color: const Color(0xff704096),
+            width: 1.5), const Color(0xff704096)),
         _space(),
-        _task('The normal challenge is as follows: ${hours} : ${minutes}'),
+        _task(
+            'The normal challenge is as follows: ${hours}:${minutes}:${seconds}', (){
+              _con.onPressedTask(context);
+              context.read<Task>().normalTask();
+        }),
         _space()
       ],
     );
   }
 
   Column _hard() {
+    Duration timeHard = _con.setTimeHard();
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(timeHard.inHours.remainder(60));
     final minutes = twoDigits(timeHard.inMinutes.remainder(60));
+    final seconds = twoDigits(timeHard.inSeconds.remainder(60));
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
-            decoration: BoxDecoration(
-                color: const Color(0xff704096),
-                borderRadius: BorderRadius.circular(10)
-            ),
-            height: 50,
-            width: double.infinity,
-            child: const Center(
-              child: Text('Hard Task',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
-                  )
-              ),
-            ),
-          ),
-        ),
+        _content('Hard Task', const Color(0xff704096), null, Colors.white),
         _space(),
-        _task('The easy challenge is as follows: ${hours} : ${minutes}'),
+        _task(
+            'The hard challenge is as follows: ${hours}:${minutes}:${seconds}', (){
+              _con.onPressedTask(context);
+              context.read<Task>().hardTask();
+            }
+        ),
         _space()
       ],
     );
   }
 
-  Padding _task(String task) {
+  Padding _content(String difficultyTask, Color? backgroundColor, BoxBorder? border, Color? colorTask){
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            border: border
+        ),
+        height: 50,
+        width: double.infinity,
+        child: Center(
+          child: Text(difficultyTask,
+              style: TextStyle(
+                  color: colorTask,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500
+              )
+          ),
+        ),
+      ),
+    );
+  }
+  Padding _task(String task, Function()? action) {
+    double? height = 120;
+    double? width = 400;
+    return Padding(
+      padding: const EdgeInsets.only(right: 40),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Stack(
+          children: [
+            Container(
+              height: height,
+              width: width,
+              decoration: BoxDecoration(
+                color: const Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                    color: Colors.black12
+                ),
+              ),
+              alignment: const Alignment(-0.90, -0.65),
+              child: Text(task,
+                  style: const TextStyle(
+                    color: Color(0xff757575),
+                    fontSize: 18,
+                  )),
+            ),
+            SizedBox(
+              height: height,
+              width: width,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: InkWell(
+                    onTap: action,
+                    child: Container(
+                      height: 45,
+                      width: 125,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: const Color(0xff5295BE),
+                              width: 3
+                          )
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text("Let's GO!",
+                          style: TextStyle(
+                              color: Color(0xff5295BE),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          )
+                      ),
+                    )
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  SizedBox _space() {
+    return const SizedBox(
+      height: 10,
+      width: double.infinity,
+    );
+  }
+
+  AppBar appBar(context) {
+    return AppBar(
+      backgroundColor: const Color(0xff704096),
+      title: const Text('Daily task'),
+      centerTitle: true,
+    );
+  }
+
+/*Padding _taskNormal(String task) {
     double? height = 120;
     double? width = 400;
     return Padding(
@@ -186,6 +240,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
                 child: InkWell(
                     onTap: () {
                       _con.onPressedTask(context);
+                      context.read<Task>().normalTask();
                     },
                     child: Container(
                       height: 45,
@@ -215,22 +270,105 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
       ),
     );
   }
-
-  SizedBox _space() {
-    return const SizedBox(
-      height: 10,
-      width: double.infinity,
+  Padding _taskHard(String task) {
+    double? height = 120;
+    double? width = 400;
+    return Padding(
+      padding: const EdgeInsets.only(right: 40),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Stack(
+          children: [
+            Container(
+              height: height,
+              width: width,
+              decoration: BoxDecoration(
+                color: const Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                    color: Colors.black12
+                ),
+              ),
+              alignment: const Alignment(-0.90, -0.65),
+              child: Text(task,
+                  style: const TextStyle(
+                    color: Color(0xff757575),
+                    fontSize: 18,
+                  )),
+            ),
+            SizedBox(
+              height: height,
+              width: width,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: InkWell(
+                    onTap: () {
+                      _con.onPressedTask(context);
+                      context.read<Task>().hardTask();
+                    },
+                    child: Container(
+                      height: 45,
+                      width: 125,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: const Color(0xff5295BE),
+                              width: 3
+                          )
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text("Let's GO!",
+                          style: TextStyle(
+                              color: Color(0xff5295BE),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          )
+                      ),
+                    )
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }*/
+/*
+  Column _difficulty(String difficultyTask, Duration timeTask, String task, Function()? action){
+    Duration time = timeTask;
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(time.inHours.remainder(60));
+    final minutes = twoDigits(time.inMinutes.remainder(60));
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Container(
+            decoration: BoxDecoration(
+                color: const Color(0xff704096),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            height: 50,
+            width: double.infinity,
+            child: Center(
+              child: Text(difficultyTask,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500
+                  )
+              ),
+            ),
+          ),
+        ),
+        _space(),
+        _task(task, action),
+        _space()
+      ],
     );
   }
-
-  AppBar appBar(context) {
-    return AppBar(
-      backgroundColor: const Color(0xff704096),
-      title: const Text('Daily task'),
-      centerTitle: true,
-    );
-  }
-
+   */
 /*
   Column _taskNotTrue(){
     return Column(

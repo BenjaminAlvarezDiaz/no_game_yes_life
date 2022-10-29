@@ -21,21 +21,21 @@ class OptionsPageController extends ControllerMVC{
   }
 
   onPressedNickname(context){
-    print('Me estoy yendo xd');
+    //print('Me estoy yendo xd');
     return Navigator.push(context, MaterialPageRoute(
         builder: (context) => const OptionsNicknamePage())
     );
   }
 
   onPressedRoutine(context){
-    print('Me estoy yendo pa otro lado xd');
+    //print('Me estoy yendo pa otro lado xd');
     return Navigator.push(context, MaterialPageRoute(
         builder: (context) => const OptionsRoutinePage())
     );
   }
 
   onPressedNotifications(context){
-    print('Me estoy yendo pa otro lado aaaaaaaaaa xd');
+    //print('Me estoy yendo pa otro lado aaaaaaaaaa xd');
     return Navigator.push(context, MaterialPageRoute(
         builder: (context) => const OptionsNotificationsPage())
     );
