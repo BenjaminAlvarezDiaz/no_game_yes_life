@@ -56,6 +56,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
         _space(),
         _task(
             'The easy challenge is as follows: ${hours}:${minutes}:${seconds}', (){
+              _con.setAmountEasy();
               _con.onPressedTask(context);
               context.read<Task>().easyTask();
             }),
@@ -78,6 +79,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
         _space(),
         _task(
             'The normal challenge is as follows: ${hours}:${minutes}:${seconds}', (){
+              _con.setAmountNormal();
               _con.onPressedTask(context);
               context.read<Task>().normalTask();
         }),
@@ -98,6 +100,7 @@ class _DailyTaskPage extends StateMVC<DailyTask> {
         _space(),
         _task(
             'The hard challenge is as follows: ${hours}:${minutes}:${seconds}', (){
+              _con.setAmountHard();
               _con.onPressedTask(context);
               context.read<Task>().hardTask();
             }

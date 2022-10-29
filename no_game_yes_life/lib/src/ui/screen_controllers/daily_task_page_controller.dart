@@ -5,6 +5,9 @@ import 'package:no_game_yes_life/manager/data_manager.dart';
 
 class DailyTaskPageController extends ControllerMVC{
   late DataManager dataManager;
+  late int amountEasy;
+  late int amountNormal;
+  late int amountHard;
   DailyTaskPageController._privateConstruct(this.dataManager);
 
   static final DailyTaskPageController _instance = DailyTaskPageController._privateConstruct(DataManager());
@@ -15,6 +18,9 @@ class DailyTaskPageController extends ControllerMVC{
 
   init(){
     getCountdown();
+    amountEasy;
+    amountNormal;
+    amountHard;
   }
 
   onPressedTask(context){
@@ -42,4 +48,16 @@ class DailyTaskPageController extends ControllerMVC{
     return timeHard;
   }
 
+  setAmountEasy(){
+    amountEasy++;
+    dataManager.setAmountEasy(amountEasy);
+  }
+
+  setAmountNormal(){
+    dataManager.setAmountNormal(amountNormal);
+  }
+
+  setAmountHard(){
+    dataManager.setAmountHard(amountHard);
+  }
 }

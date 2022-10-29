@@ -27,4 +27,16 @@ class DataManager{
   setRoutine(double newRoutine){
     dataAccess.setRoutine(newRoutine);
   }
+
+  setAmountEasy(int newAmountEasy){
+    dataAccess.setAmountEasy(newAmountEasy);
+  }
+
+  setAmountNormal(int newAmountNormal){
+    dataAccess.setAmountNormal(newAmountNormal);
+  }
+
+  setAmountHard(int newAmountHard){
+    dataAccess.setAmountHard(newAmountHard);
+  }
 }
